@@ -1,0 +1,34 @@
+command,description,points
+ls,List files and directories,1
+cd,Change directory,1
+pwd,Print current working directory,1
+cp,Copy files or directories,1
+mv,Move or rename files,1
+rm,Remove files or directories,1
+mkdir,Create a directory,1
+rmdir,Remove an empty directory,1
+cat,Print file contents,1
+less,View file contents interactively,1
+grep,Search text using patterns,2
+find,Search for files by name or attributes,2
+chmod,Change file permissions,2
+chown,Change file owner or group,2
+ps,Show running processes,2
+kill,Terminate a process,2
+top,Real-time system resource monitor,2
+df,Show disk usage by filesystem,2
+du,Show disk usage by directory,2
+tar,Archive or compress files,3
+ssh,Connect to remote machines securely,3
+scp,Copy files over SSH,3
+curl,Transfer data from URLs or APIs,3
+awk,Pattern scanning and text processing,4
+sed,Stream editor for modifying text,4
+journalctl,View systemd logs,4
+systemctl,Control systemd services,4
+iptables,Configure firewall rules,5
+strace,Trace system calls for debugging,5
+lsof,List open files and network sockets,5
+jump,Make the character jump,10
+run,Run forward quickly,5
+shoot,Fire a projectile,20
