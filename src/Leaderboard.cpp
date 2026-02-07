@@ -1,4 +1,4 @@
-#include "Leaderboard.h"
+#include "Leaderboard.hpp"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>

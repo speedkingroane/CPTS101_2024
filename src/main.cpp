@@ -6,8 +6,8 @@
 #include <string.h>
 #include <time.h>
 
-#include "Commands.h"
-#include "Leaderboard.h"
+#include "Commands.hpp"
+#include "Leaderboard.hpp"
 
 #define QUESTIONS_PER_GAME 20
 #define LEADERBOARD_FILE "Leaderboard.csv"
