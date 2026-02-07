@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 LeaderboardNode* createLeaderboardNode(const char* name, int score) {
-    LeaderboardNode* node = malloc(sizeof(LeaderboardNode));
+    LeaderboardNode* node = (LeaderboardNode*)malloc(sizeof(LeaderboardNode));
     if (!node) {
         printf("Memory allocation failed.\n");
         return NULL;

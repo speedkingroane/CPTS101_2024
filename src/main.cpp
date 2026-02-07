@@ -78,7 +78,7 @@ static int pickRandomCommands(CommandNode* head, CommandNode** out, int maxCount
     if (total == 0) return 0;
 
     // Allocate temporary array of pointers
-    CommandNode** temp = malloc(sizeof(CommandNode*) * total);
+    CommandNode** temp = (CommandNode**)malloc(sizeof(CommandNode*) * total);
     if (!temp) return 0;
 
     CommandNode* p = head;
@@ -112,12 +112,18 @@ static void playNewGame(CommandNode* commandsHead, LeaderboardNode** leaderboard
     if (totalCmds < QUESTIONS_PER_GAME) numQuestions = totalCmds;
 
     // Use helper to pick unique commands
-    CommandNode** selected = malloc(sizeof(CommandNode*) * numQuestions);
+    CommandNode** selected = (CommandNode**)malloc(sizeof(CommandNode*) * numQuestions);
     if (!selected) return;
     int picked = pickRandomCommands(commandsHead, selected, numQuestions);
 
     int score = 0;
     char input[64];
+
+    // Build an array of all commands once for sampling wrong answers
+    CommandNode** all = (CommandNode**)malloc(sizeof(CommandNode*) * totalCmds);
+    if (!all) { free(selected); return; }
+    CommandNode* curtmp = commandsHead;
+    for (int i = 0; i < totalCmds; ++i) { all[i] = curtmp; curtmp = curtmp->next; }
 
     for (int q = 0; q < picked; ++q) {
         CommandNode* correct = selected[q];
@@ -125,22 +131,12 @@ static void playNewGame(CommandNode* commandsHead, LeaderboardNode** leaderboard
         // pick two wrong unique indices (ensure different from q)
         int wrong1 = -1, wrong2 = -1;
         if (totalCmds <= 3) {
-            // small list: pick from selected/pool directly but ensure unique commands
-            while (1) {
-                int r = rand() % totalCmds;
-                if (r != q) { wrong1 = r; break; }
-            }
-            while (1) {
-                int r = rand() % totalCmds;
-                if (r != q && r != wrong1) { wrong2 = r; break; }
-            }
-            // map indices into selected or full list: easier to sample from full list array
-            // Build a temporary array of all pointers to pick wrong answers
-            CommandNode** all = malloc(sizeof(CommandNode*) * totalCmds);
-            CommandNode* cur = commandsHead;
-            for (int i = 0; i < totalCmds; ++i) { all[i] = cur; cur = cur->next; }
+            // small list: pick two distinct wrong indices from the full pool (exclude correct)
+            int correctIndexInAll = -1;
+            for (int i = 0; i < totalCmds; ++i) if (all[i] == correct) { correctIndexInAll = i; break; }
+            do { wrong1 = rand() % totalCmds; } while (wrong1 == correctIndexInAll);
+            do { wrong2 = rand() % totalCmds; } while (wrong2 == correctIndexInAll || wrong2 == wrong1);
             const char* opts[3] = { correct->command, all[wrong1]->command, all[wrong2]->command };
-            free(all);
 
             // shuffle and continue
             for (int i = 2; i > 0; --i) {
@@ -171,21 +167,13 @@ static void playNewGame(CommandNode* commandsHead, LeaderboardNode** leaderboard
             }
         }
         else {
-            // General path: sample wrong answers directly from full pool (ensure distinct)
-            CommandNode** all = malloc(sizeof(CommandNode*) * totalCmds);
-            CommandNode* cur = commandsHead;
-            for (int i = 0; i < totalCmds; ++i) { all[i] = cur; cur = cur->next; }
-
+            // General path: sample wrong answers from the full pool (exclude correct)
             int correctIndexInAll = -1;
             for (int i = 0; i < totalCmds; ++i) if (all[i] == correct) { correctIndexInAll = i; break; }
-
             int r1, r2;
             do { r1 = rand() % totalCmds; } while (r1 == correctIndexInAll);
             do { r2 = rand() % totalCmds; } while (r2 == correctIndexInAll || r2 == r1);
-
             const char* opts[3] = { correct->command, all[r1]->command, all[r2]->command };
-
-            free(all);
 
             // shuffle options
             for (int i = 2; i > 0; --i) {
@@ -218,6 +206,7 @@ static void playNewGame(CommandNode* commandsHead, LeaderboardNode** leaderboard
         }
     }
 
+    free(all);
     free(selected);
     // ... keep earlier includes and helpers above unchanged
 
