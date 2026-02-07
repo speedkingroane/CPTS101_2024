@@ -267,7 +267,7 @@ static void playNewGame(CommandNode* commandsHead, LeaderboardNode** leaderboard
     // ... rest of function continues unchanged
 
 }
-//---------------------------------------------------------------
+
 static void addCommandInteractive(CommandNode** head) {
     char cmd[MAX_CMD_LEN];
     char desc[MAX_DESC_LEN];
