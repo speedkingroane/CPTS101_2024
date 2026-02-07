@@ -1,4 +1,5 @@
 command,description,points
+command,description,points
 ls,List files and directories,1
 cd,Change directory,1
 pwd,Print current working directory,1

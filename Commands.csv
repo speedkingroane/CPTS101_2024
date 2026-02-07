@@ -1,0 +1,21 @@
+command,description,points
+ls,List files in a directory,10
+cd,Change the current directory,10
+mkdir,Create a new directory,15
+rm,Remove a file or directory,20
+cp,Copy files or directories,15
+mv,Move or rename files,15
+cat,Display file contents,10
+grep,Search for patterns in text,25
+chmod,Change file permissions,20
+pwd,Print working directory,5
+echo,Print text to standard output,5
+find,Search for files,20
+tar,Create or extract archives,20
+vi,Text editor (Vi/Vim),25
+gcc,GNU C compiler,30
+make,Build automation tool,25
+git,Version control system,30
+curl,Transfer data using URLs,20
+ssh,Secure shell connection,25
+sudo,Execute command with superuser privileges,30
