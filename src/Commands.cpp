@@ -114,7 +114,7 @@ static char* escape_csv_field(const char* src)
 }
 
 void loadCommands(CommandNode** head) {
-    FILE* file = fopen("Commands.csv", "r");
+    FILE* file = fopen("Commands.csv", "r");//--------------------------------------------------
     char line[512];
 
     if (file == NULL) {
@@ -135,7 +135,7 @@ void loadCommands(CommandNode** head) {
         char cmd[MAX_CMD_LEN];
         char desc[MAX_DESC_LEN];
         char ptsStr[32];
-
+//----------------------------------------------------------------------------
         if (!parse_csv_fields(line, cmd, sizeof(cmd), desc, sizeof(desc), ptsStr, sizeof(ptsStr))) {
             // malformed line
             continue;
@@ -146,11 +146,11 @@ void loadCommands(CommandNode** head) {
 
         int points = atoi(ptsStr);
 
-        // Prevent duplicates
+        // Prevent duplicates----------------------------------------------------------------------
         if (searchCommand(*head, cmd) != NULL) {
             continue;
         }
-
+        
         CommandNode* node = createCommandNode(cmd, desc, points);
         if (node != NULL) {
             insertCommandEnd(head, node);
