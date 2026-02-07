@@ -1,4 +1,15 @@
-
+//Spencer Roane
+//Professor Subu
+//CPT_S 223
+//1/29/2026 - 2/6/2026
+//This program is a command-line quiz game that tests users on 
+//their knowledge of various commands.
+//-----------------------------------------------------------
+//Reflection:
+//One pro to using a linked list for commands is that we can easily add or remove commands without resizing an array or shifting any elements.
+//One con is that the time to find a command  is linear (O(n)) 
+//due to the need to traverse the list one by one, making the process of finding 
+//a random question both longer and harder
 //--------------------------------------------------------------------------------------------------------------------
 #define  _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
